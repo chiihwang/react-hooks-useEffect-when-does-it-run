@@ -16,9 +16,16 @@ const Main = () => {
   }, [toggleTwo]);
 
   useEffect(() => {
-    setInterval(() => {
+    const myInterval = setInterval(() => {
       console.log(`UseEffect3 with interval number ${count} is running`);
     }, 1000);
+
+    return () => {
+      console.log(
+        `UseEffect3 cleanup ran.\nsetInterval number ${count} is being cleared out`
+      );
+      clearInterval(myInterval);
+    };
   }, [count]);
 
   return (
@@ -28,6 +35,7 @@ const Main = () => {
       <button onClick={() => setToggleOne(!toggleOne)}>ToggleOne</button>
       <button onClick={() => setToggleTwo(!toggleTwo)}>ToggleTwo</button>
       <button onClick={() => setCount(count + 1)}>Increment</button>
+      <h1>{count}</h1>
     </div>
   );
 };
